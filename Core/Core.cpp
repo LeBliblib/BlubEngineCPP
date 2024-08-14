@@ -50,6 +50,17 @@ void Core::init(const std::string_view path) {
         SDL_RenderClear(renderer);
 
         RenderLoop::Render();
+
+        SDL_RenderPresent(renderer);
+
+        SDL_Delay(1000);
+
+        sceneObject->RemoveComponent(textureRenderer->instanceId);
+
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderClear(renderer);
+
+        RenderLoop::Render();
     }
 
     std::cout << "out of scope\n";
