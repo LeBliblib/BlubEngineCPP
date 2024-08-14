@@ -4,17 +4,22 @@
 
 Transform::~Transform()
 {
-    std::cout << "Destroying Transform\n";
+    std::cout << "Transform destroyed" << '\n';
 }
 
-void Transform::setPosition(const Vector2& pos) {
+void Transform::SetPosition(const Vector2& pos) {
     position = pos;
 }
 
-void Transform::setRotation(float rot) {
+void Transform::SetRotation(float rot) {
     rotation = rot;
 }
 
-void Transform::setScale(const Vector2& s) {
+void Transform::SetScale(const Vector2& s) {
     scale = s;
 }
+
+void Transform::OnAttached_Internal() {}
+void Transform::OnInitialized_Internal() {}
+void Transform::OnUpdate_Internal() {}
+void Transform::OnDestroyed_Internal() {}

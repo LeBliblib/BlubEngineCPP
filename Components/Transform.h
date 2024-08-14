@@ -3,16 +3,22 @@
 #include "Component.h"
 #include "../Maths/Vector2.h"
 
-class Transform : Component {
+class Transform final : public Component {
 public:
+    Transform() = delete;
+    explicit Transform(SceneObject* obj) : Component(obj) {}
+~Transform() override;
+    
     Vector2 position{};
     float rotation{};
     Vector2 scale{};
 
-    Transform() = default;
-    ~Transform();
-
-    void setPosition(const Vector2& pos);
-    void setRotation(float rot);
-    void setScale(const Vector2& s);
+    void SetPosition(const Vector2& pos);
+    void SetRotation(float rot);
+    void SetScale(const Vector2& s);
+    
+    void OnAttached_Internal() override;
+    void OnInitialized_Internal() override;
+    void OnUpdate_Internal() override;
+    void OnDestroyed_Internal() override;
 };

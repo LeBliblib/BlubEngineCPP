@@ -2,26 +2,23 @@
 
 #include <iostream>
 
-TextureRenderer::TextureRenderer(Transform* transform, Texture *texture, int sortingLayer) {
-    this->transform = transform;
-    this->texture = texture;
-    this->sortingLayer = sortingLayer;
-}
+#include "../Rendering/RenderLoop.h"
 
 TextureRenderer::~TextureRenderer()
 {
-    std::cout << "Destroying TextureRenderer\n";
+    std::cout << "TextureRenderer destroyed" << '\n';
 }
 
-Vector2 TextureRenderer::getPosition() const {
-    return transform->position;
+void TextureRenderer::OnAttached_Internal()
+{
+    RenderLoop::Register(this);
 }
 
-double TextureRenderer::getRotation() const {
-    return 0;
-    //return transform->rotation;
-}
+void TextureRenderer::OnInitialized_Internal() {}
 
-Vector2 TextureRenderer::getScale() const {
-    return transform->scale;
+void TextureRenderer::OnUpdate_Internal() {}
+
+void TextureRenderer::OnDestroyed_Internal()
+{
+    RenderLoop::Unregister(this);
 }

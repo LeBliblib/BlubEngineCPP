@@ -2,21 +2,27 @@
 
 #include "../Rendering/Texture.h"
 #include "Component.h"
-#include "Transform.h"
 
-class TextureRenderer : Component {
+class TextureRenderer final : public Component {
 public:
-    TextureRenderer() = default;
-    explicit TextureRenderer(Transform* transform, Texture* texture, int sortingLayer);
-    ~TextureRenderer();
+
+    TextureRenderer() = delete;
+    explicit TextureRenderer(SceneObject* obj) : Component(obj) {}
+~TextureRenderer() override;
     
+    void SetTexture(Texture* tex) {
+        texture = tex;
+    }
+
+    void SetSortingLayer(int layer) {
+        sortingLayer = layer;
+    }
+
+    void OnAttached_Internal() override;
+    void OnInitialized_Internal() override;
+    void OnUpdate_Internal() override;
+    void OnDestroyed_Internal() override;
+
     int sortingLayer{};
     Texture* texture{};
-
-    [[nodiscard]] Vector2 getPosition() const;
-    [[nodiscard]] double getRotation() const;
-    [[nodiscard]] Vector2 getScale() const;
-
-private:
-    Transform* transform{};
 };

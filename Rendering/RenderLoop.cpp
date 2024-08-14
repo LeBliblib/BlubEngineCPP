@@ -4,6 +4,7 @@
 #include <ranges>
 
 #include "../Core/Core.h"
+#include "../Objects/SceneObject.h"
 
 void RenderLoop::Register(TextureRenderer *textureRenderer) {
     textureRenderers[textureRenderer->sortingLayer].insert(textureRenderer);
@@ -18,9 +19,16 @@ void RenderLoop::Unregister(TextureRenderer *textureRenderer) {
 void RenderLoop::Render() { 
     for (auto& renderers : textureRenderers | std::views::values) {
         for (auto& renderer : renderers) {
-            SDL_Rect destRect = {150, 150, 25, 25};
+
+            if(renderer->texture == nullptr) {
+                continue;
+            }
+
+            auto transform = renderer->sceneObject->GetTransform();
+            
+            SDL_Rect destRect = {-32, 0, 64, 64};
             SDL_RenderCopyEx(Core::renderer, renderer->texture->getSDLTexture(), nullptr,
-                             &destRect, renderer->getRotation(), nullptr, SDL_FLIP_NONE);
+                             &destRect, transform->rotation, nullptr, SDL_FLIP_NONE);
         }
     }
 }
