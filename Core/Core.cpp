@@ -17,9 +17,6 @@ SDL_Renderer* Core::renderer = nullptr;
 
 using namespace std::chrono_literals;
 
-// we use a fixed timestep of 1 / (60 fps) = 16 milliseconds
-constexpr std::chrono::nanoseconds timestep(16ms);
-
 extern "C" {
      __declspec(dllexport) int initWrapper(const char* path) {
         Core::Init(path);
@@ -69,35 +66,70 @@ void Core::Shutdown() {
 
 bool Core::quit{};
 
+const float NANO_TO_SEC = 1.0f / 1e9f;
+const float TIMESTEP_IN_SEC = 1.0f / 60.0f;
+
+void preciseSleep(double seconds) {
+    using namespace std;
+    using namespace std::chrono;
+
+    static double estimate = 5e-3;
+    static double mean = 5e-3;
+    static double m2 = 0;
+    static int64_t count = 1;
+
+    while (seconds > estimate) {
+        auto start = high_resolution_clock::now();
+        this_thread::sleep_for(milliseconds(1));
+        auto end = high_resolution_clock::now();
+
+        double observed = (end - start).count() * NANO_TO_SEC;
+        seconds -= observed;
+
+        ++count;
+        double delta = observed - mean;
+        mean += delta / count;
+        m2   += delta * (observed - mean);
+        double stddev = sqrt(m2 / (count - 1));
+        estimate = mean + stddev;
+    }
+
+    // spin lock
+    auto start = high_resolution_clock::now();
+    while ((high_resolution_clock::now() - start).count() * NANO_TO_SEC < seconds);
+}
+
+
+
 void Core::GameLoop()
 {
     using clock = std::chrono::high_resolution_clock;
-
-    std::chrono::nanoseconds lag(0ns);
     auto time_start = clock::now();
     
     while(!quit)
     {
-        auto delta_time = clock::now() - time_start;
-        time_start = clock::now();
-        lag += std::chrono::duration_cast<std::chrono::nanoseconds>(delta_time);
+        auto delta_time = static_cast<float>((clock::now() - time_start).count()) * NANO_TO_SEC;
         
-        HandleEvents();
-
-        // update game logic as lag permits
-        while(lag >= timestep) {
-            lag -= timestep;
-
-            auto secondsDelta = std::chrono::duration_cast<std::chrono::duration<float>>(timestep).count();
-            std::cout << "time: " << secondsDelta << '\n';
-            Camera::mainCamera->sceneObject->GetTransform()->position.x += 0.5f * secondsDelta;
+        if(delta_time < TIMESTEP_IN_SEC) {
+            const auto diff = TIMESTEP_IN_SEC - delta_time;
+            
+            preciseSleep(diff);
+            
+            delta_time = static_cast<float>((clock::now() - time_start).count()) * NANO_TO_SEC;
+            //std::cout << "delta_time: " << delta_time << '\n';
         }
+        
+        time_start = clock::now();
+     
+        HandleEvents();
+        
+        Camera::mainCamera->sceneObject->GetTransform()->position.x += 0.5f * delta_time;
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
         
         RenderLoop::Render();
-        SDL_RenderPresent(renderer);
+        SDL_RenderPresent(renderer); 
     }
 }
 
