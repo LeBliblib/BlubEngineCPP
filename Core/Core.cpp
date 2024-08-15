@@ -6,9 +6,11 @@
 #include "../AssetsManagement//AssetManager.h"
 #include "../Components/Camera.h"
 #include "../Components/TextureRenderer.h"
+#include "../Components/UpdateLoop.h"
 #include "../Objects/SceneObject.h"
 #include "../Rendering/RenderLoop.h"
 #include "../SceneManagement/Scene.h"
+#include "../TimeManagement/Time.h"
 
 SDL_Window* Core::window = nullptr;
 SDL_Renderer* Core::renderer = nullptr;
@@ -22,13 +24,13 @@ extern "C" {
 
 void Core::Init(const std::string_view path) {
     SDL_Init(SDL_INIT_EVERYTHING);
-    window = SDL_CreateWindow("Hello World!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Tinity Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     
     RenderLoop::Init();
-    AssetManager::init();
+    AssetManager::Init();
 
-    auto texture = AssetManager::loadTexture(path);
+    auto texture = AssetManager::LoadTexture(path);
     if(texture == nullptr) {
         SDL_Delay(3000);
 
@@ -50,7 +52,7 @@ void Core::Init(const std::string_view path) {
     camera->SetPriority(1);
     
     GameLoop();
-
+    
     Shutdown();
 }
 
@@ -95,8 +97,6 @@ void preciseSleep(double seconds) {
     while ((high_resolution_clock::now() - start).count() * NANO_TO_SEC < seconds);
 }
 
-
-
 void Core::GameLoop()
 {
     using clock = std::chrono::high_resolution_clock;
@@ -104,22 +104,24 @@ void Core::GameLoop()
     
     while(!quit)
     {
-        auto delta_time = static_cast<float>((clock::now() - time_start).count()) * NANO_TO_SEC;
+        auto deltaTime = static_cast<float>((clock::now() - time_start).count()) * NANO_TO_SEC;
         
-        if(delta_time < TIMESTEP_IN_SEC) {
-            const auto diff = TIMESTEP_IN_SEC - delta_time;
+        if(deltaTime < TIMESTEP_IN_SEC) {
+            const auto diff = TIMESTEP_IN_SEC - deltaTime;
             
             preciseSleep(diff);
             
-            delta_time = static_cast<float>((clock::now() - time_start).count()) * NANO_TO_SEC;
+            deltaTime = static_cast<float>((clock::now() - time_start).count()) * NANO_TO_SEC;
             //std::cout << "delta_time: " << delta_time << '\n';
         }
+
+        Time::SetDeltaTime(deltaTime);
         
         time_start = clock::now();
      
         HandleEvents();
-        
-        Camera::mainCamera->sceneObject->GetTransform()->position.x += 0.5f * delta_time;
+
+        UpdateLoop::Update();
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
@@ -128,7 +130,6 @@ void Core::GameLoop()
         SDL_RenderPresent(renderer); 
     }
 }
-
 
 void Core::HandleEvents()
 {

@@ -5,6 +5,7 @@
 
 #include "../Core/Core.h"
 #include "../Objects/SceneObject.h"
+#include "../TimeManagement/Time.h"
 
 Camera* Camera::mainCamera = nullptr;
 
@@ -24,7 +25,10 @@ void Camera::HandleCameraPriorityChange(Camera* camera)
 
 void Camera::OnAttached_Internal() {}
 void Camera::OnInitialized_Internal() {}
-void Camera::OnUpdate_Internal() {}
+void Camera::OnUpdate_Internal()
+{
+    sceneObject->GetTransform()->position.x += 0.5f * Time::GetDeltaTime();
+}
 void Camera::OnDestroyed_Internal() {}
 
 Vector2Int Camera::GetWorldToScreenPoint(const Vector2& worldPoint) const

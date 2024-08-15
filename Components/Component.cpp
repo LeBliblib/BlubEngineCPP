@@ -1,6 +1,10 @@
 #include "Component.h"
+
+#include "UpdateLoop.h"
+
 void Component::OnAttached()
 {
+    UpdateLoop::Register(this);
     OnAttached_Internal();
     // Call c# OnAttached
 }
@@ -16,6 +20,12 @@ void Component::OnUpdate()
 }
 void Component::OnDestroyed()
 {
+    UpdateLoop::Unregister(GetInstanceId());
     OnDestroyed_Internal();
     // Call c# OnDestroyed
+}
+
+void Component::Destroy()
+{
+    OnDestroyed();
 }

@@ -38,3 +38,5 @@ Vector2Int Texture::GetSdlTextureSize() const
     
     return size;
 }
+
+void Texture::Destroy() {}

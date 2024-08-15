@@ -7,10 +7,17 @@
 
 #include "../Components/Transform.h"
 
+class Scene;
+
 class SceneObject final : public EngineObject
 {
 public:
-    SceneObject();
+    SceneObject() = delete;
+
+    explicit SceneObject(Scene* scene) : scene(scene)
+    {
+        transform = std::make_unique<Transform>(this);
+    }
     ~SceneObject() override;
     
     [[nodiscard]] Transform* GetTransform() const { return transform.get(); }
@@ -22,7 +29,7 @@ public:
         auto component = std::make_unique<T>(this);
         T* rawComponent = component.get();
 
-        components[rawComponent->instanceId] = std::move(component);
+        components[rawComponent->GetInstanceId()] = std::move(component);
 
         rawComponent->OnAttached();
         return rawComponent;
@@ -37,8 +44,12 @@ public:
         components.erase(id);
         return 1;
     }
-    
+
+    void Destroy() override;
+
 private:
+    Scene* scene{};
+    
     std::unique_ptr<Transform> transform;
 
     std::unordered_map<int, std::unique_ptr<Component>> components{};

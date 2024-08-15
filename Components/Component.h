@@ -8,7 +8,7 @@ class Component : public EngineObject
 {
 public:
     Component() = delete;
-    explicit Component(SceneObject* obj) : sceneObject(obj) {}
+    explicit Component(SceneObject* obj) : sceneObject(obj) { }
     
     void OnAttached();
     virtual void OnAttached_Internal() = 0;
@@ -22,5 +22,7 @@ public:
     void OnDestroyed();
     virtual void OnDestroyed_Internal() = 0;
     
+    void Destroy() override;
+
     SceneObject* sceneObject{};
 };

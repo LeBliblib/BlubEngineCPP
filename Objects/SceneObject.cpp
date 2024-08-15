@@ -1,13 +1,21 @@
 #include "SceneObject.h"
+#include "../SceneManagement/Scene.h"
 
 #include <iostream>
-
-SceneObject::SceneObject()
-{
-    transform = std::make_unique<Transform>(this);
-}
+#include <ranges>
 
 SceneObject::~SceneObject()
 {
     std::cout << "SceneObject destroyed" << '\n';
+}
+
+void SceneObject::Destroy()
+{
+    scene->UnregisterSceneObject(GetInstanceId());
+    
+    transform->Destroy();
+    for (const auto& val : components | std::views::values)
+    {
+        val->Destroy();
+    }
 }

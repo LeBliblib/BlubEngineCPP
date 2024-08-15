@@ -166,6 +166,7 @@
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Components\TextureRenderer.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
+    <ClCompile Include="Components\UpdateLoop.cpp" />
     <ClCompile Include="Core\Core.cpp" />
     <ClCompile Include="Maths\Math.cpp" />
     <ClCompile Include="Maths\Vector2.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Rendering\Texture.cpp" />
     <ClCompile Include="SceneManagement\Scene.cpp" />
     <ClCompile Include="SceneManagement\SceneManager.cpp" />
+    <ClCompile Include="TimeManagement\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetsManagement\AssetManager.h" />
@@ -183,6 +185,7 @@
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\TextureRenderer.h" />
     <ClInclude Include="Components\Transform.h" />
+    <ClInclude Include="Components\UpdateLoop.h" />
     <ClInclude Include="Core\Core.h" />
     <ClInclude Include="Maths\Math.h" />
     <ClInclude Include="Maths\Vector2.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="Rendering\Texture.h" />
     <ClInclude Include="SceneManagement\Scene.h" />
     <ClInclude Include="SceneManagement\SceneManager.h" />
+    <ClInclude Include="TimeManagement\Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

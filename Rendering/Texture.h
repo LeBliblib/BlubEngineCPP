@@ -35,5 +35,8 @@ private:
 
     Vector2Int cachedSize;
     [[nodiscard]] Vector2Int GetSdlTextureSize() const;
+
+public:
+    void Destroy() override;
 };
 

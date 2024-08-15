@@ -3,7 +3,7 @@
 #include "../Core/Core.h"
 #include <iostream>
 
-Texture *AssetManager::loadTexture(std::string_view path) {
+Texture *AssetManager::LoadTexture(const std::string_view path) {
 
     auto pathPtr = path.data();
 
@@ -22,6 +22,6 @@ Texture *AssetManager::loadTexture(std::string_view path) {
 
 std::unordered_map<std::string, std::unique_ptr<Texture>> AssetManager::loadedTextures{};
 
-void AssetManager::init() {
+void AssetManager::Init() {
     loadedTextures.clear();
 }
