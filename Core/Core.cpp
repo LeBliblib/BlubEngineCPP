@@ -1,9 +1,7 @@
 #include <memory>
-#include <utility>
 #include "Core.h"
 
 #include <chrono>
-#include <iostream>
 
 #include "../AssetsManagement//AssetManager.h"
 #include "../Components/Camera.h"
@@ -14,8 +12,6 @@
 
 SDL_Window* Core::window = nullptr;
 SDL_Renderer* Core::renderer = nullptr;
-
-using namespace std::chrono_literals;
 
 extern "C" {
      __declspec(dllexport) int initWrapper(const char* path) {
