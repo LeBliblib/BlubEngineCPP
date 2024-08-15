@@ -38,9 +38,8 @@ Vector2Int Camera::GetWorldToScreenPoint(const Vector2& worldPoint) const
     auto aspectRatio = static_cast<float>(width) / static_cast<float>(height);
     
     const auto topLeftPosition = Vector2{centerPosition.x - (orthographicSize * 0.5f * aspectRatio), centerPosition.y + orthographicSize * 0.5f};
-
-    auto relativeFloat = worldPoint - topLeftPosition;
     
+    auto relativeFloat = worldPoint - topLeftPosition;
     relativeFloat.x /= orthographicSize * aspectRatio;
     relativeFloat.y /= orthographicSize;
     

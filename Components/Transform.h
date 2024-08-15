@@ -8,6 +8,8 @@ public:
     Transform() = delete;
     explicit Transform(SceneObject* obj) : Component(obj)
     {
+        position = {0, 0};
+        rotation = 0;
         scale = {1, 1};
     }
 ~Transform() override;

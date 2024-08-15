@@ -4,9 +4,14 @@
 
 class Core {
 public:
-    static void init(std::string_view path);
-    static void shutdown();
+    static void Init(std::string_view path);
+    static void Shutdown();
 
+    static void GameLoop();
+    static void HandleEvents();
+
+    static bool quit;
+    
     static SDL_Window* window;
     static SDL_Renderer* renderer;
 

@@ -18,10 +18,6 @@ public:
         sortingLayer = layer;
     }
 
-    SDL_Rect GetDestRect() const {
-        return {static_cast<int>(GetTransform()->position.x), static_cast<int>(GetTransform()->position.y), texture->width, texture->height};
-    }
-
     void OnAttached_Internal() override;
     void OnInitialized_Internal() override;
     void OnUpdate_Internal() override;
