@@ -167,7 +167,9 @@
     <ClCompile Include="Components\TextureRenderer.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="Core\Core.cpp" />
+    <ClCompile Include="Maths\Math.cpp" />
     <ClCompile Include="Maths\Vector2.cpp" />
+    <ClCompile Include="Maths\Vector2Int.cpp" />
     <ClCompile Include="Objects\EngineObject.cpp" />
     <ClCompile Include="Objects\SceneObject.cpp" />
     <ClCompile Include="Rendering\RenderLoop.cpp" />
@@ -182,7 +184,9 @@
     <ClInclude Include="Components\TextureRenderer.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="Core\Core.h" />
+    <ClInclude Include="Maths\Math.h" />
     <ClInclude Include="Maths\Vector2.h" />
+    <ClInclude Include="Maths\Vector2Int.h" />
     <ClInclude Include="Objects\EngineObject.h" />
     <ClInclude Include="Objects\SceneObject.h" />
     <ClInclude Include="Rendering\RenderLoop.h" />

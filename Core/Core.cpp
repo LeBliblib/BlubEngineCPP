@@ -23,7 +23,7 @@ extern "C" {
 
 void Core::init(const std::string_view path) {
     SDL_Init(SDL_INIT_EVERYTHING);
-    window = SDL_CreateWindow("Hello World!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 300, 120, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Hello World!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     
     RenderLoop::Init();
@@ -46,17 +46,12 @@ void Core::init(const std::string_view path) {
         textureRenderer->SetTexture(texture);
         textureRenderer->SetSortingLayer(0);
 
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_RenderClear(renderer);
+        sceneObject->GetTransform()->position = {0.0f, 0.0f};
 
-        RenderLoop::Render();
-
-        SDL_RenderPresent(renderer);
-
-        SDL_Delay(1000);
-
-        sceneObject->RemoveComponent(textureRenderer->instanceId);
-
+        SceneObject* sceneObject2 = scene.CreateSceneObject();
+        auto camera = sceneObject2->AddComponent<Camera>();
+        camera->SetPriority(1);
+        
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderClear(renderer);
 

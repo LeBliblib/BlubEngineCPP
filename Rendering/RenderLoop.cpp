@@ -3,6 +3,7 @@
 
 #include <ranges>
 
+#include "../Components/Camera.h"
 #include "../Core/Core.h"
 #include "../Objects/SceneObject.h"
 
@@ -23,10 +24,12 @@ void RenderLoop::Render() {
             if(renderer->texture == nullptr) {
                 continue;
             }
-
-            auto transform = renderer->sceneObject->GetTransform();
             
-            SDL_Rect destRect = {-32, 0, 64, 64};
+            auto transform = renderer->sceneObject->GetTransform();
+
+            auto screenPos = Camera::mainCamera->GetWorldToScreenPoint(transform->position);
+            
+            SDL_Rect destRect = {screenPos.x - 32, screenPos.y - 32, 64, 64};
             SDL_RenderCopyEx(Core::renderer, renderer->texture->getSDLTexture(), nullptr,
                              &destRect, transform->rotation, nullptr, SDL_FLIP_NONE);
         }
