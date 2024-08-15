@@ -10,11 +10,6 @@ Vector2Int::Vector2Int(const Vector2& other)
     y = Math::Round(other.y);
 }
 
-Vector2Int::~Vector2Int()
-{
-    std::cout << "Destroying Vector2\n";
-}
-
 Vector2Int Vector2Int::operator+(const Vector2Int& vector2) const
 {
     return {x + vector2.x, y + vector2.y};
@@ -23,4 +18,19 @@ Vector2Int Vector2Int::operator+(const Vector2Int& vector2) const
 Vector2Int Vector2Int::operator-(const Vector2Int& vector2) const
 {
     return {x - vector2.x, y - vector2.y};
+}
+
+Vector2Int Vector2Int::operator*(const int factor) const
+{
+    return {x*factor, y*factor};
+}
+
+Vector2Int Vector2Int::operator/(const int factor) const
+{
+    return {x/factor, y/factor};
+}
+
+Vector2Int Vector2Int::operator/=(const int factor) const
+{
+    return {x/factor, y/factor};
 }

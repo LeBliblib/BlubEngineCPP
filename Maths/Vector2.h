@@ -1,5 +1,7 @@
 #pragma once
 
+struct Vector2Int;
+
 struct Vector2 {
     float x{};
     float y{};
@@ -7,9 +9,17 @@ struct Vector2 {
     Vector2() = default;
     Vector2(const float x, const float y) : x(x), y(y) {}
     Vector2(const Vector2& other) = default;
-
-    ~Vector2();
-
+    explicit Vector2(const Vector2Int& other); 
+    
     Vector2 operator+(const Vector2& vector2) const;
     Vector2 operator-(const Vector2& vector2) const;
+
+    Vector2 operator*(float factor) const;
+    Vector2 operator/(float factor) const;
+    
+    Vector2& operator*=(float factor);
+    Vector2& operator/=(float factor);
+
+    Vector2 operator*(const Vector2& factor) const;
+    Vector2& operator*=(const  Vector2& factor);
 };

@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <string>
 
+#include "../Maths/Vector2Int.h"
 #include "../Objects/EngineObject.h"
 
 class Texture : EngineObject {
@@ -23,12 +24,16 @@ public:
     // Move assignment operator
     Texture& operator=(Texture&& other) = delete;
 
-    [[nodiscard]] SDL_Texture* getSDLTexture() const;
-    [[nodiscard]] std::string_view getPath() const;
+    [[nodiscard]] SDL_Texture* GetSdlTexture() const;
+    [[nodiscard]] std::string_view GetPath() const;
+
+    [[nodiscard]] Vector2Int GetSize() const;
 
 private:
     SDL_Texture* texture{};
     std::string path;
 
+    Vector2Int cachedSize;
+    [[nodiscard]] Vector2Int GetSdlTextureSize() const;
 };
 

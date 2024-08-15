@@ -6,7 +6,10 @@
 class Transform final : public Component {
 public:
     Transform() = delete;
-    explicit Transform(SceneObject* obj) : Component(obj) {}
+    explicit Transform(SceneObject* obj) : Component(obj)
+    {
+        scale = {1, 1};
+    }
 ~Transform() override;
     
     Vector2 position{};

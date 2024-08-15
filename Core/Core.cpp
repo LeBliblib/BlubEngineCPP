@@ -50,6 +50,7 @@ void Core::init(const std::string_view path) {
 
         SceneObject* sceneObject2 = scene.CreateSceneObject();
         auto camera = sceneObject2->AddComponent<Camera>();
+        camera->orthographicSize = 1;
         camera->SetPriority(1);
         
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);

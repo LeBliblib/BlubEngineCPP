@@ -1,4 +1,3 @@
-#include <algorithm>
 #include "RenderLoop.h"
 
 #include <ranges>
@@ -17,6 +16,27 @@ void RenderLoop::Unregister(TextureRenderer *textureRenderer) {
     }
 }
 
+void GetDestRectForRenderer(const TextureRenderer* renderer, SDL_Rect* rect)
+{
+    auto transform = renderer->sceneObject->GetTransform();
+
+    auto screenPos = Camera::mainCamera->GetWorldToScreenPoint(transform->position);
+
+    auto objSize = Vector2{renderer->texture->GetSize()};
+    objSize *= 0.01f;
+    objSize *= transform->scale;
+            
+    int width;
+    int height;
+    SDL_GetWindowSize(Core::window, &width, &height);
+            
+    objSize = objSize * static_cast<float>(height) / Camera::mainCamera->orthographicSize;
+            
+    const auto screenSize = Vector2Int{objSize}; 
+            
+    *rect = {screenPos.x - screenSize.x / 2, screenPos.y - screenSize.y / 2, screenSize.x, screenSize.y};
+}
+
 void RenderLoop::Render() { 
     for (auto& renderers : textureRenderers | std::views::values) {
         for (auto& renderer : renderers) {
@@ -24,17 +44,16 @@ void RenderLoop::Render() {
             if(renderer->texture == nullptr) {
                 continue;
             }
-            
-            auto transform = renderer->sceneObject->GetTransform();
 
-            auto screenPos = Camera::mainCamera->GetWorldToScreenPoint(transform->position);
-            
-            SDL_Rect destRect = {screenPos.x - 32, screenPos.y - 32, 64, 64};
-            SDL_RenderCopyEx(Core::renderer, renderer->texture->getSDLTexture(), nullptr,
-                             &destRect, transform->rotation, nullptr, SDL_FLIP_NONE);
+            SDL_Rect destRect{};
+            GetDestRectForRenderer(renderer, &destRect);
+
+            SDL_RenderCopyEx(Core::renderer, renderer->texture->GetSdlTexture(), nullptr,
+                             &destRect, renderer->sceneObject->GetTransform()->rotation, nullptr, SDL_FLIP_NONE);
         }
     }
 }
+
 
 std::map<int, std::unordered_set<TextureRenderer*>> RenderLoop::textureRenderers{};
 
