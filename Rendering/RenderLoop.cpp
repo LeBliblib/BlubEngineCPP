@@ -1,5 +1,6 @@
 #include "RenderLoop.h"
 
+#include <iostream>
 #include <ranges>
 
 #include "../Components/Camera.h"
@@ -37,7 +38,13 @@ void GetDestRectForRenderer(const TextureRenderer* renderer, SDL_Rect* rect)
     *rect = {screenPos.x - screenSize.x / 2, screenPos.y - screenSize.y / 2, screenSize.x, screenSize.y};
 }
 
-void RenderLoop::Render() { 
+void RenderLoop::Render() {
+    if (Camera::mainCamera == nullptr)
+    {
+        std::cout << "There is no camera to render the game!" << '\n';
+        return;
+    }
+    
     for (auto& renderers : textureRenderers | std::views::values) {
         for (auto& renderer : renderers) {
 

@@ -8,7 +8,6 @@ public:
     static void Shutdown();
 
     static void GameLoop();
-    static void HandleEvents();
 
     static bool quit;
     

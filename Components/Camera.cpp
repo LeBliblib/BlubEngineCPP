@@ -4,6 +4,7 @@
 #include <SDL_video.h>
 
 #include "../Core/Core.h"
+#include "../InputsManagement/InputsManager.h"
 #include "../Objects/SceneObject.h"
 #include "../TimeManagement/Time.h"
 
@@ -27,7 +28,10 @@ void Camera::OnAttached_Internal() {}
 void Camera::OnInitialized_Internal() {}
 void Camera::OnUpdate_Internal()
 {
-    sceneObject->GetTransform()->position.x += 0.5f * Time::GetDeltaTime();
+    if(InputsManager::IsKeyPressed(SDLK_d))
+    {
+        sceneObject->GetTransform()->position.x += 0.5f * Time::GetDeltaTime();
+    }
 }
 void Camera::OnDestroyed_Internal() {}
 

@@ -168,6 +168,8 @@
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="Components\UpdateLoop.cpp" />
     <ClCompile Include="Core\Core.cpp" />
+    <ClCompile Include="InputsManagement\InputsManager.cpp" />
+    <ClCompile Include="InputsManagement\Keycode.cpp" />
     <ClCompile Include="Maths\Math.cpp" />
     <ClCompile Include="Maths\Vector2.cpp" />
     <ClCompile Include="Maths\Vector2Int.cpp" />
@@ -187,6 +189,8 @@
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="Components\UpdateLoop.h" />
     <ClInclude Include="Core\Core.h" />
+    <ClInclude Include="InputsManagement\InputsManager.h" />
+    <ClInclude Include="InputsManagement\Keycode.h" />
     <ClInclude Include="Maths\Math.h" />
     <ClInclude Include="Maths\Vector2.h" />
     <ClInclude Include="Maths\Vector2Int.h" />

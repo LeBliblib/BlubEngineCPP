@@ -11,7 +11,8 @@ SceneObject::~SceneObject()
 
 void SceneObject::Destroy()
 {
-    scene->UnregisterSceneObject(GetInstanceId());
+    if(scene != nullptr)
+        scene->UnregisterSceneObject(GetInstanceId());
     
     transform->Destroy();
     for (const auto& val : components | std::views::values)

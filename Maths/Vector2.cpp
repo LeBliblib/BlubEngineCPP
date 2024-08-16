@@ -13,12 +13,12 @@ Vector2 Vector2::operator-(const Vector2& vector2) const
     return {x - vector2.x, y - vector2.y};
 }
 
-Vector2 Vector2::operator*(float factor) const
+Vector2 Vector2::operator*(const float factor) const
 {
     return {x * factor, y * factor};
 }
 
-Vector2 Vector2::operator/(float factor) const
+Vector2 Vector2::operator/(const float factor) const
 {
     return {x / factor, y / factor};
 }
@@ -28,7 +28,7 @@ Vector2& Vector2::operator*=(float factor)
     y *= factor;
     return *this;
 }
-Vector2& Vector2::operator/=(float factor)
+Vector2& Vector2::operator/=(const float factor)
 {
     x /= factor;
     y /= factor;

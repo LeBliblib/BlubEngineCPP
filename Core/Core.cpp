@@ -7,6 +7,7 @@
 #include "../Components/Camera.h"
 #include "../Components/TextureRenderer.h"
 #include "../Components/UpdateLoop.h"
+#include "../InputsManagement/InputsManager.h"
 #include "../Objects/SceneObject.h"
 #include "../Rendering/RenderLoop.h"
 #include "../SceneManagement/Scene.h"
@@ -119,7 +120,7 @@ void Core::GameLoop()
         
         time_start = clock::now();
      
-        HandleEvents();
+        InputsManager::HandleEvents(quit);
 
         UpdateLoop::Update();
 
@@ -128,20 +129,5 @@ void Core::GameLoop()
         
         RenderLoop::Render();
         SDL_RenderPresent(renderer); 
-    }
-}
-
-void Core::HandleEvents()
-{
-    SDL_Event e;
-    while (!quit && SDL_PollEvent(&e))
-    {
-        switch (e.type)
-        {
-            case SDL_QUIT:
-                quit = true;
-                break;
-            default: ;
-        }
     }
 }
