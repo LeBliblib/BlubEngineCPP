@@ -52,7 +52,8 @@ void Core::Shutdown() {
 bool Core::quit{};
 
 const float NANO_TO_SEC = 1.0f / 1e9f;
-const float TIMESTEP_IN_SEC = 1.0f / 60.0f;
+const float TIMESTEP_IN_SEC = 1.0f / 120.0f;
+const bool LIMIT_FRAMERATE = true;
 
 void preciseSleep(double seconds) {
     using namespace std;
@@ -93,7 +94,7 @@ void Core::GameLoop()
     {
         auto deltaTime = static_cast<float>((clock::now() - time_start).count()) * NANO_TO_SEC;
         
-        if(deltaTime < TIMESTEP_IN_SEC) {
+        if(LIMIT_FRAMERATE && deltaTime < TIMESTEP_IN_SEC) {
             const auto diff = TIMESTEP_IN_SEC - deltaTime;
             
             preciseSleep(diff);
@@ -103,6 +104,7 @@ void Core::GameLoop()
         }
 
         Time::SetDeltaTime(deltaTime);
+        std::cout << "delta_time: " << deltaTime << " FPS: " << 1 / deltaTime << '\n';
         
         time_start = clock::now();
      

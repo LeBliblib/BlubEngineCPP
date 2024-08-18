@@ -21,12 +21,12 @@ extern "C"
     }
 }
 
-void SetPosition(const intptr_t transformPtr, const Vector2* position)
+extern "C" __declspec(dllexport) void SetPosition(const intptr_t transformPtr, const Vector2 position)
 {
     try
     {
         const auto transform = Marshal::UnmarshalTransform(transformPtr);
-        transform->position = *position;
+        transform->position = position;
     }
     catch (const std::exception& e)
     {
@@ -34,7 +34,7 @@ void SetPosition(const intptr_t transformPtr, const Vector2* position)
     }
 }
 
-float GetRotation(const intptr_t transformPtr)
+extern "C" __declspec(dllexport) float GetRotation(const intptr_t transformPtr)
 {
     try
     {
@@ -47,7 +47,7 @@ float GetRotation(const intptr_t transformPtr)
     }
 }
 
-void SetRotation(const intptr_t transformPtr, const float rotation)
+extern "C" __declspec(dllexport) void SetRotation(const intptr_t transformPtr, const float rotation)
 {
     try
     {
@@ -60,7 +60,7 @@ void SetRotation(const intptr_t transformPtr, const float rotation)
     }
 }
 
-void GetScale(const intptr_t transformPtr, Vector2* scale)
+extern "C" __declspec(dllexport) void GetScale(const intptr_t transformPtr, Vector2* scale)
 {
     try
     {
@@ -73,7 +73,7 @@ void GetScale(const intptr_t transformPtr, Vector2* scale)
     }
 }
 
-void SetScale(const intptr_t transformPtr, const Vector2* scale)
+extern "C" __declspec(dllexport) void SetScale(const intptr_t transformPtr, const Vector2* scale)
 {
     try
     {

@@ -7,7 +7,7 @@
 #include "../Objects/SceneObject.h"
 #include "../Components/Component.h"
 
-bool DestroySceneObject(const intptr_t sceneObjectPtr)
+extern "C" __declspec(dllexport) bool DestroySceneObject(const intptr_t sceneObjectPtr)
 {
     try
     {
@@ -23,7 +23,7 @@ bool DestroySceneObject(const intptr_t sceneObjectPtr)
     }
 }
 
-bool AddComponent(const intptr_t sceneObjectPtr, int componentType, const intptr_t* eventMethodPtrs,
+extern "C" __declspec(dllexport) bool AddComponent(const intptr_t sceneObjectPtr, int componentType, const intptr_t* eventMethodPtrs,
                   int* eventMethodsType, const int eventMethodCount, intptr_t* componentPtr, int* instanceId)
 {
     try
@@ -60,7 +60,7 @@ bool AddComponent(const intptr_t sceneObjectPtr, int componentType, const intptr
     }
 }
 
-bool RemoveComponent(const intptr_t sceneObjectPtr, const int componentId)
+extern "C" __declspec(dllexport) bool RemoveComponent(const intptr_t sceneObjectPtr, const int componentId)
 {
     try
     {

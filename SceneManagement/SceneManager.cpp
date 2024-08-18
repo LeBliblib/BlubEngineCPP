@@ -2,7 +2,7 @@
 
 std::unique_ptr<Scene> SceneManager::activeScene{};
 
-intptr_t SceneManager::LoadNewScene(int* instanceID)
+void SceneManager::LoadNewScene()
 {
     if (activeScene != nullptr)
     {
@@ -11,6 +11,6 @@ intptr_t SceneManager::LoadNewScene(int* instanceID)
     
     activeScene = std::make_unique<Scene>();
 
-    *instanceID = activeScene->GetInstanceId();
-    return activeScene->GetIntPtr();
+//    *instanceID = activeScene->GetInstanceId();
+//    return activeScene->GetIntPtr();
 }

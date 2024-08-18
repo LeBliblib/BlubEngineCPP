@@ -9,6 +9,8 @@ void Component::OnAttached()
     UpdateLoop::Register(this);
     OnAttached_Internal();
 
+    std::cout << "Component attached" << '\n';
+
     // On attached is called directly by c# scripting backend
 }
 void Component::OnInitialized()

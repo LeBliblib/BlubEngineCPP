@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <memory>
 #include <unordered_map>
 
@@ -31,6 +32,7 @@ public:
 
         components[rawComponent->GetInstanceId()] = std::move(component);
 
+        std::cout << "Added component of type: " << typeid(T).name() << '\n';
         rawComponent->OnAttached();
         return rawComponent;
     }

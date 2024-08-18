@@ -164,8 +164,10 @@
     <ClCompile Include="AssetsManagement\AssetManager.cpp" />
     <ClCompile Include="Bindings\CoreBindings.cpp" />
     <ClCompile Include="Bindings\Marshal.cpp" />
+    <ClCompile Include="Bindings\SceneManagerBindings.cpp" />
     <ClCompile Include="Bindings\SceneBindings.cpp" />
     <ClCompile Include="Bindings\SceneObjectBindings.cpp" />
+    <ClCompile Include="Bindings\TextureRendererBindings.cpp" />
     <ClCompile Include="Bindings\TransformBindings.cpp" />
     <ClCompile Include="Components\Camera.cpp" />
     <ClCompile Include="Components\Component.cpp" />
@@ -191,8 +193,10 @@
     <ClInclude Include="AssetsManagement\AssetManager.h" />
     <ClInclude Include="Bindings\CoreBindings.h" />
     <ClInclude Include="Bindings\Marshal.h" />
+    <ClInclude Include="Bindings\SceneManagerBindings.h" />
     <ClInclude Include="Bindings\SceneBindings.h" />
     <ClInclude Include="Bindings\SceneObjectBindings.h" />
+    <ClInclude Include="Bindings\TextureRendererBindings.h" />
     <ClInclude Include="Bindings\TransformBindings.h" />
     <ClInclude Include="Components\Camera.h" />
     <ClInclude Include="Components\Component.h" />
