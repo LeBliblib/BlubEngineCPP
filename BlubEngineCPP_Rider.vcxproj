@@ -162,8 +162,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetsManagement\AssetManager.cpp" />
+    <ClCompile Include="Bindings\CoreBindings.cpp" />
+    <ClCompile Include="Bindings\Marshal.cpp" />
+    <ClCompile Include="Bindings\SceneBindings.cpp" />
+    <ClCompile Include="Bindings\SceneObjectBindings.cpp" />
+    <ClCompile Include="Bindings\TransformBindings.cpp" />
     <ClCompile Include="Components\Camera.cpp" />
     <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Components\DefaultComponent.cpp" />
     <ClCompile Include="Components\TextureRenderer.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="Components\UpdateLoop.cpp" />
@@ -183,8 +189,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetsManagement\AssetManager.h" />
+    <ClInclude Include="Bindings\CoreBindings.h" />
+    <ClInclude Include="Bindings\Marshal.h" />
+    <ClInclude Include="Bindings\SceneBindings.h" />
+    <ClInclude Include="Bindings\SceneObjectBindings.h" />
+    <ClInclude Include="Bindings\TransformBindings.h" />
     <ClInclude Include="Components\Camera.h" />
     <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\DefaultComponent.h" />
     <ClInclude Include="Components\TextureRenderer.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="Components\UpdateLoop.h" />

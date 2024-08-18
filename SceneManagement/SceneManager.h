@@ -5,10 +5,10 @@ class SceneManager
 {
 
 public:
-    [[nodiscard]] Scene* GetActiveScene() const { return activeScene.get(); }
+    [[nodiscard]] static Scene* GetActiveScene() { return activeScene.get(); }
 
-    void LoadScene(std::string name);
+    static intptr_t LoadNewScene(int* instanceID);
     
 private:
-    std::unique_ptr<Scene> activeScene;
+    static std::unique_ptr<Scene> activeScene;
 };

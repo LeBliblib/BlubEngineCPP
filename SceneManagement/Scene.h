@@ -4,7 +4,7 @@
 #include "../Objects/EngineObject.h"
 #include "../Objects/SceneObject.h"
 
-class Scene final : EngineObject
+class Scene final : public EngineObject
 {
 public:
     ~Scene() override;

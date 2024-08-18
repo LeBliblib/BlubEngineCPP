@@ -4,7 +4,7 @@
 
 class Core {
 public:
-    static void Init(std::string_view path);
+    static void Init(intptr_t onGameInitialized);
     static void Shutdown();
 
     static void GameLoop();
@@ -14,4 +14,5 @@ public:
     static SDL_Window* window;
     static SDL_Renderer* renderer;
 
+    typedef void (*CoreDelegate)();
 };

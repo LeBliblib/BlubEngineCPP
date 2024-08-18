@@ -24,7 +24,10 @@ void Camera::HandleCameraPriorityChange(Camera* camera)
     }
 }
 
-void Camera::OnAttached_Internal() {}
+void Camera::OnAttached_Internal()
+{
+    HandleCameraPriorityChange(this);
+}
 void Camera::OnInitialized_Internal() {}
 void Camera::OnUpdate_Internal()
 {

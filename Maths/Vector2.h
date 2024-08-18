@@ -2,6 +2,8 @@
 
 struct Vector2Int;
 
+#pragma pack(push, 1)  // Save the current alignment and set new alignment to 1 byte
+
 struct Vector2 {
     float x{};
     float y{};
@@ -23,3 +25,5 @@ struct Vector2 {
     Vector2 operator*(const Vector2& factor) const;
     Vector2& operator*=(const  Vector2& factor);
 };
+
+#pragma pack(pop)  // Restore the original alignment

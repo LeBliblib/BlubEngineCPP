@@ -23,7 +23,7 @@ public:
     [[nodiscard]] Transform* GetTransform() const { return transform.get(); }
 
     template<typename T>
-    T* AddComponent() {
+    [[nodiscard]] T* AddComponent() {
         static_assert(std::is_base_of_v<Component, T>, "T must be a Component type");
 
         auto component = std::make_unique<T>(this);
@@ -35,18 +35,20 @@ public:
         return rawComponent;
     }
 
-    int RemoveComponent(int id) {
+    [[nodiscard]] Component* AddComponent(BUILT_IN_TYPES type);
+
+    int RemoveComponent(const int id) {
         if (!components.contains(id)) {
             return 0;
         }
 
-        components[id]->OnDestroyed();
+        components[id]->Destroy();
         components.erase(id);
         return 1;
     }
 
     void Destroy() override;
-
+    
 private:
     Scene* scene{};
     

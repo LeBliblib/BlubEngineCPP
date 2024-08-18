@@ -2,6 +2,7 @@
 #include "Core.h"
 
 #include <chrono>
+#include <iostream>
 
 #include "../AssetsManagement//AssetManager.h"
 #include "../Components/Camera.h"
@@ -16,41 +17,26 @@
 SDL_Window* Core::window = nullptr;
 SDL_Renderer* Core::renderer = nullptr;
 
-extern "C" {
-     __declspec(dllexport) int initWrapper(const char* path) {
-        Core::Init(path);
-        return 0;
-    }
-}
-
-void Core::Init(const std::string_view path) {
+void Core::Init(intptr_t onGameInitialized) {
     SDL_Init(SDL_INIT_EVERYTHING);
     window = SDL_CreateWindow("Tinity Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    CoreDelegate onGameInitializedDelegate = nullptr;
+    
+    try
+    {
+        onGameInitializedDelegate = reinterpret_cast<CoreDelegate>(onGameInitialized);  // NOLINT(performance-no-int-to-ptr)
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "An error occurred while setting onGameInitialized delegate. \n" << e.what() << '\n';
+    }
     
     RenderLoop::Init();
     AssetManager::Init();
 
-    auto texture = AssetManager::LoadTexture(path);
-    if(texture == nullptr) {
-        SDL_Delay(3000);
-
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return;
-    }
-        
-    Scene scene = Scene();
-    SceneObject* sceneObject = scene.CreateSceneObject();
-    auto textureRenderer = sceneObject->AddComponent<TextureRenderer>();
-    textureRenderer->SetTexture(texture);
-    textureRenderer->SetSortingLayer(0);
-
-    SceneObject* sceneObject2 = scene.CreateSceneObject();
-    auto camera = sceneObject2->AddComponent<Camera>();
-    camera->orthographicSize = 1;
-    camera->SetPriority(1);
+    onGameInitializedDelegate();
     
     GameLoop();
     
@@ -131,3 +117,5 @@ void Core::GameLoop()
         SDL_RenderPresent(renderer); 
     }
 }
+
+
