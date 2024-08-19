@@ -20,3 +20,18 @@ extern "C" {
         return Camera::mainCamera->sceneObject->GetTransform()->GetIntPtr();
     }
 }
+
+void SetTargetFrameRate(const int frameRate)
+{
+    Core::SetTargetFrameRate(frameRate);
+}
+
+void LimitFrameRate(const bool value)
+{
+    Core::LimitFrameRate(value);
+}
+
+void DisplayFps(const bool value)
+{
+    Core::displayFps = value;
+}

@@ -1,6 +1,5 @@
 #include "InputsManager.h"
 
-#include <iostream>
 #include <SDL_events.h>
 
 std::pmr::unordered_set<SDL_Keycode> InputsManager::downKeys{};

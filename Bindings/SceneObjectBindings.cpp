@@ -65,9 +65,8 @@ extern "C" __declspec(dllexport) bool RemoveComponent(const intptr_t sceneObject
     try
     {
         const auto sceneObject = Marshal::UnmarshalSceneObject(sceneObjectPtr);
-        sceneObject->RemoveComponent(componentId);
         
-        return true;
+        return sceneObject->RemoveComponent(componentId);
     }
     catch (const std::exception& e)
     {

@@ -18,6 +18,8 @@ public:
     explicit SceneObject(Scene* scene) : scene(scene)
     {
         transform = std::make_unique<Transform>(this);
+        transform->OnAttached();
+        std::cout << "Set transform for scene object " << transform->GetInstanceId() << '\n';  
     }
     ~SceneObject() override;
     
@@ -49,6 +51,14 @@ public:
         return 1;
     }
 
+    /// <summary>
+    /// This will destroy the SceneObject with all its components. Without unregistering it from the scene.
+    /// </summary>
+    void SoftDestroy();
+
+    /// <summary>
+    /// This will call SoftDestroy then unregister the SceneObject from its scene.
+    /// </summary>
     void Destroy() override;
     
 private:

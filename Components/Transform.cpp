@@ -21,5 +21,7 @@ void Transform::SetScale(const Vector2& s) {
 
 void Transform::OnAttached_Internal() {}
 void Transform::OnInitialized_Internal() {}
-void Transform::OnUpdate_Internal() {}
+void Transform::OnUpdate_Internal()
+{
+}
 void Transform::OnDestroyed_Internal() {}

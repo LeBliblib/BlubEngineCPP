@@ -2,12 +2,12 @@
 
 #include "../SceneManagement/SceneManager.h"
 
-extern "C" __declspec(dllexport) intptr_t LoadNewScene(int* instanceID)
+extern "C" __declspec(dllexport) void RequestSceneLoad(const intptr_t requestPtr)
 {
-    SceneManager::LoadNewScene();
-    
-    const auto scene = SceneManager::GetActiveScene();
-    
-    *instanceID = scene->GetInstanceId();
-    return scene->GetIntPtr();
+    SceneManager::RequestSceneLoad(requestPtr);
+}
+
+extern "C" __declspec(dllexport) intptr_t ForceSceneLoad(int* instanceId)
+{
+    return SceneManager::ForceSceneLoad(instanceId);
 }

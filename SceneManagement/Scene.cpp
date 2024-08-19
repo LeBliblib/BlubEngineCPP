@@ -12,6 +12,8 @@ void Scene::Destroy()
 {
     for (const auto& val : sceneObjects | std::views::values)
     {
-        val->Destroy();
+        val->SoftDestroy();
     }
+    
+    sceneObjects.clear();
 }

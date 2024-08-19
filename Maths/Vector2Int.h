@@ -1,6 +1,8 @@
 #pragma once
 #include "Vector2.h"
 
+#pragma pack(push, 1)
+
 struct Vector2Int
 {
     int x{};
@@ -19,3 +21,5 @@ struct Vector2Int
 
     Vector2Int operator/=(const int factor) const;
 };
+
+#pragma pack(pop)

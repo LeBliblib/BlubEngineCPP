@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "Component.h"
+#include "../Components/Component.h"
 
 #include <ranges>
 

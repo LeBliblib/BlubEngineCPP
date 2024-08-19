@@ -4,14 +4,11 @@
 #include <chrono>
 #include <iostream>
 
-#include "../AssetsManagement//AssetManager.h"
-#include "../Components/Camera.h"
-#include "../Components/TextureRenderer.h"
-#include "../Components/UpdateLoop.h"
+#include "../AssetsManagement/AssetManager.h"
+#include "../Loops/UpdateLoop.h"
 #include "../InputsManagement/InputsManager.h"
-#include "../Objects/SceneObject.h"
 #include "../Rendering/RenderLoop.h"
-#include "../SceneManagement/Scene.h"
+#include "../SceneManagement/SceneManager.h"
 #include "../TimeManagement/Time.h"
 
 SDL_Window* Core::window = nullptr;
@@ -52,8 +49,10 @@ void Core::Shutdown() {
 bool Core::quit{};
 
 const float NANO_TO_SEC = 1.0f / 1e9f;
-const float TIMESTEP_IN_SEC = 1.0f / 120.0f;
-const bool LIMIT_FRAMERATE = true;
+float Core::timestepInSec = 1.0f / 60.0f;
+bool Core::limitFrameRate = true;
+
+bool Core::displayFps = false;
 
 void preciseSleep(double seconds) {
     using namespace std;
@@ -85,6 +84,11 @@ void preciseSleep(double seconds) {
     while ((high_resolution_clock::now() - start).count() * NANO_TO_SEC < seconds);
 }
 
+void OnFrameStart()
+{
+    SceneManager::OnFrameStart();
+}
+
 void Core::GameLoop()
 {
     using clock = std::chrono::high_resolution_clock;
@@ -94,8 +98,8 @@ void Core::GameLoop()
     {
         auto deltaTime = static_cast<float>((clock::now() - time_start).count()) * NANO_TO_SEC;
         
-        if(LIMIT_FRAMERATE && deltaTime < TIMESTEP_IN_SEC) {
-            const auto diff = TIMESTEP_IN_SEC - deltaTime;
+        if(limitFrameRate && deltaTime < timestepInSec) {
+            const auto diff = timestepInSec - deltaTime;
             
             preciseSleep(diff);
             
@@ -104,10 +108,12 @@ void Core::GameLoop()
         }
 
         Time::SetDeltaTime(deltaTime);
-        std::cout << "delta_time: " << deltaTime << " FPS: " << 1 / deltaTime << '\n';
+        if (displayFps) std::cout << "delta_time: " << deltaTime << " FPS: " << 1 / deltaTime << '\n';
         
         time_start = clock::now();
-     
+
+        OnFrameStart();
+        
         InputsManager::HandleEvents(quit);
 
         UpdateLoop::Update();
@@ -120,4 +126,13 @@ void Core::GameLoop()
     }
 }
 
+void Core::SetTargetFrameRate(const int frameRate)
+{
+    timestepInSec = 1.0f / static_cast<float>(frameRate);
+}
+
+void Core::LimitFrameRate(bool value)
+{
+    limitFrameRate = value;
+}
 

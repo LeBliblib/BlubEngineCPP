@@ -73,12 +73,12 @@ extern "C" __declspec(dllexport) void GetScale(const intptr_t transformPtr, Vect
     }
 }
 
-extern "C" __declspec(dllexport) void SetScale(const intptr_t transformPtr, const Vector2* scale)
+extern "C" __declspec(dllexport) void SetScale(const intptr_t transformPtr, const Vector2 scale)
 {
     try
     {
         const auto transform = Marshal::UnmarshalTransform(transformPtr);
-        transform->scale = *scale;
+        transform->scale = scale;
     }
     catch (const std::exception& e)
     {

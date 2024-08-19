@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "UpdateLoop.h"
+#include "../Loops/UpdateLoop.h"
 
 void Component::OnAttached()
 {

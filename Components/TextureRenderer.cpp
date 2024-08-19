@@ -16,7 +16,9 @@ void TextureRenderer::OnAttached_Internal()
 
 void TextureRenderer::OnInitialized_Internal() {}
 
-void TextureRenderer::OnUpdate_Internal() {}
+void TextureRenderer::OnUpdate_Internal()
+{
+}
 
 void TextureRenderer::OnDestroyed_Internal()
 {

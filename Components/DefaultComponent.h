@@ -9,6 +9,8 @@ public:
     explicit DefaultComponent(SceneObject* obj)
         : Component(obj) {}
 
+    ~DefaultComponent() override;
+    
     void OnAttached_Internal() override;
     void OnInitialized_Internal() override;
     void OnUpdate_Internal() override;

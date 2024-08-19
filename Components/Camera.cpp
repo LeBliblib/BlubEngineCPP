@@ -1,12 +1,9 @@
 #include "Camera.h"
 
-#include <iostream>
 #include <SDL_video.h>
 
 #include "../Core/Core.h"
-#include "../InputsManagement/InputsManager.h"
 #include "../Objects/SceneObject.h"
-#include "../TimeManagement/Time.h"
 
 Camera* Camera::mainCamera = nullptr;
 
@@ -31,12 +28,11 @@ void Camera::OnAttached_Internal()
 void Camera::OnInitialized_Internal() {}
 void Camera::OnUpdate_Internal()
 {
-    if(InputsManager::IsKeyPressed(SDLK_d))
-    {
-        sceneObject->GetTransform()->position.x += 0.5f * Time::GetDeltaTime();
-    }
 }
-void Camera::OnDestroyed_Internal() {}
+void Camera::OnDestroyed_Internal()
+{
+    std::cout << "camera destroyed" << '\n';
+}
 
 Vector2Int Camera::GetWorldToScreenPoint(const Vector2& worldPoint) const
 {

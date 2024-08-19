@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <iostream>
 
 class EngineObject
 {
@@ -15,7 +16,10 @@ public:
     
     [[nodiscard]] intptr_t GetIntPtr() const;
 
-    [[nodiscard]] int GetInstanceId() const { return instanceId; }
+    [[nodiscard]] int GetInstanceId() const
+    {
+        return instanceId;
+    }
 
 private:
     int instanceId{};

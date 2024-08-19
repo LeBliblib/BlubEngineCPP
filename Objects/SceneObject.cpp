@@ -35,14 +35,24 @@ Component* SceneObject::AddComponent(const BUILT_IN_TYPES type)
     return component;
 }
 
-void SceneObject::Destroy()
+void SceneObject::SoftDestroy()
 {
-    if(scene != nullptr)
-        scene->UnregisterSceneObject(GetInstanceId());
-    
     transform->Destroy();
     for (const auto& val : components | std::views::values)
     {
         val->Destroy();
+    }
+
+    transform = nullptr;
+    components.clear();
+}
+
+void SceneObject::Destroy()
+{
+    SoftDestroy();
+
+    if(scene != nullptr)
+    {
+        scene->UnregisterSceneObject(GetInstanceId());
     }
 }

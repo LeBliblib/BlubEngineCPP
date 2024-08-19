@@ -1,6 +1,5 @@
 #pragma once
 #include <SDL.h>
-#include <string>
 
 class Core {
 public:
@@ -15,4 +14,13 @@ public:
     static SDL_Renderer* renderer;
 
     typedef void (*CoreDelegate)();
+    
+    static bool displayFps; 
+
+    static void SetTargetFrameRate(int frameRate);
+    static void LimitFrameRate(bool value);
+    
+private:
+    static float timestepInSec;
+    static bool limitFrameRate;
 };
