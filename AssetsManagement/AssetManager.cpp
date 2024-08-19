@@ -7,6 +7,10 @@ Texture *AssetManager::LoadTexture(const std::string_view path) {
 
     auto pathPtr = path.data();
 
+    if(loadedTextures.contains(pathPtr)) {
+        return loadedTextures[pathPtr].get();
+    }
+    
     auto texture = IMG_LoadTexture(Core::renderer, pathPtr);
     if(texture == nullptr) {
         std::cout << "Failed to load texture at path: " << path << '\n';

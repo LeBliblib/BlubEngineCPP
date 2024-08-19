@@ -7,6 +7,7 @@
 #include "../AssetsManagement/AssetManager.h"
 #include "../Loops/UpdateLoop.h"
 #include "../InputsManagement/InputsManager.h"
+#include "../Objects/DestroyHandler.h"
 #include "../Rendering/RenderLoop.h"
 #include "../SceneManagement/SceneManager.h"
 #include "../TimeManagement/Time.h"
@@ -87,6 +88,7 @@ void preciseSleep(double seconds) {
 void OnFrameStart()
 {
     SceneManager::OnFrameStart();
+    DestroyHandler::OnFrameStart();
 }
 
 void Core::GameLoop()

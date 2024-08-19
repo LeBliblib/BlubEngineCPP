@@ -6,6 +6,7 @@
 #include "Marshal.h"
 #include "../Objects/SceneObject.h"
 #include "../Components/Component.h"
+#include "../Objects/DestroyHandler.h"
 
 extern "C" __declspec(dllexport) bool DestroySceneObject(const intptr_t sceneObjectPtr)
 {
@@ -13,7 +14,7 @@ extern "C" __declspec(dllexport) bool DestroySceneObject(const intptr_t sceneObj
     {
         const auto sceneObject = Marshal::UnmarshalSceneObject(sceneObjectPtr);  // NOLINT(performance-no-int-to-ptr)
 
-        sceneObject->Destroy();
+        DestroyHandler::RequestDestroy(sceneObject);
         return true;
     }
     catch (const std::exception& e)
@@ -23,8 +24,13 @@ extern "C" __declspec(dllexport) bool DestroySceneObject(const intptr_t sceneObj
     }
 }
 
+void SetDestroyHandlerCallback(intptr_t callbackPtr)
+{
+    DestroyHandler::SetDestroyCallback(callbackPtr);
+}
+
 extern "C" __declspec(dllexport) bool AddComponent(const intptr_t sceneObjectPtr, int componentType, const intptr_t* eventMethodPtrs,
-                  int* eventMethodsType, const int eventMethodCount, intptr_t* componentPtr, int* instanceId)
+                                                   int* eventMethodsType, const int eventMethodCount, intptr_t* componentPtr, int* instanceId)
 {
     try
     {
